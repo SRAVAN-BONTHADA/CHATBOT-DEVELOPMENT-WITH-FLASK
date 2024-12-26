@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - Sra_1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <style>
+        /* You can also include your CSS here if needed or keep it in the style.css file */
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-header">
+            <h2>Sra_1 Chatbot</h2>
+            <img src="https://png.pngtree.com/png-vector/20240208/ourmid/pngtree-artificial-intelligence-brain-graphic-element-png-image_11720064.png" alt="Sra_1 Icon" id="chat-icon">
+        </div>
+        <div id="chat-box">
+            <div id="messages"></div>
+            <div id="typing-indicator" style="display: none;">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Type a message..." />
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("send-button").addEventListener("click", function() {
+            const userMessage = document.getElementById("user-input").value;
+            if (userMessage.trim() === "") return;
+
+            const messageContainer = document.getElementById("messages");
+            const userMessageElement = document.createElement("div");
+            userMessageElement.className = "message user";
+            userMessageElement.textContent = userMessage;
+            messageContainer.appendChild(userMessageElement);
+
+            // Show typing indicator
+            const typingIndicator = document.getElementById("typing-indicator");
+            typingIndicator.style.display = "flex";
+
+            fetch("/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: userMessage }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide typing indicator
+                typingIndicator.style.display = "none";
+
+                const botMessageElement = document.createElement("div");
+                botMessageElement.className = "message bot";
+                botMessageElement.textContent = data.response || data.error;
+                messageContainer.appendChild(botMessageElement);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            })
+            .catch(error => console.error("Error:", error));
+
+            document.getElementById("user-input").value = "";
+        });
+    </script>
+</body>
+</html>
