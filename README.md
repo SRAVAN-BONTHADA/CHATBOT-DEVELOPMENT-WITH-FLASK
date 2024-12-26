@@ -1,4 +1,4 @@
-![Screenshot 2024-12-22 130117](https://github.com/user-attachments/assets/ec73859e-086c-4ef1-af46-9406fbb489c2)
+![Uploading Screenshot 2024-12-26 225942.png…]()
 
 Here’s a sample `README.md` file for your Flask web application project using Mini GPT and the Hugging Face API:
 
