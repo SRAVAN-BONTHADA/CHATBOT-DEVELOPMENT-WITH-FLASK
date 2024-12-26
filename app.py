@@ -5,7 +5,7 @@ from huggingface_hub import InferenceClient
 app = Flask(__name__)
 
 # Initialize Hugging Face Inference Client with your API key
-client = InferenceClient(api_key="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")
+client = InferenceClient(api_key="hf_XXXX")
 
 # Function to get chatbot response from Hugging Face model
 def chatbot_response(message):
